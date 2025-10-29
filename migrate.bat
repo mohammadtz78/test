@@ -6,6 +6,8 @@ REM This script updates the SystemSetting table
 REM to change the AppName from "Hello World Page" to "Koni"
 REM =========================================
 
+setlocal EnableDelayedExpansion
+
 echo.
 echo =========================================
 echo   Database Migration Tool
@@ -67,47 +69,49 @@ if exist "migrations\.migration_001_appname_to_koni" (
 echo [INFO] Running migration: Update AppName to 'Koni'
 echo.
 
-REM Create the migration script
-echo const sqlite3 = require('sqlite3').verbose(); > temp_migrate.js
-echo const path = require('path'); >> temp_migrate.js
-echo. >> temp_migrate.js
-echo const DB_PATH = path.resolve(__dirname, 'database.sqlite'); >> temp_migrate.js
-echo. >> temp_migrate.js
-echo const db = new sqlite3.Database(DB_PATH, (err) =^> { >> temp_migrate.js
-echo   if (err) { >> temp_migrate.js
-echo     console.error('[ERROR] Failed to connect to database:', err.message); >> temp_migrate.js
-echo     process.exit(1); >> temp_migrate.js
-echo   } >> temp_migrate.js
-echo }); >> temp_migrate.js
-echo. >> temp_migrate.js
-echo console.log('[INFO] Connected to database'); >> temp_migrate.js
-echo console.log('[INFO] Updating AppName from "Hello World Page" to "Koni"...'); >> temp_migrate.js
-echo. >> temp_migrate.js
-echo db.run( >> temp_migrate.js
-echo   'UPDATE SystemSetting SET settingValue = ? WHERE settingName = ?', >> temp_migrate.js
-echo   ['Koni', 'AppName'], >> temp_migrate.js
-echo   function(err) { >> temp_migrate.js
-echo     if (err) { >> temp_migrate.js
-echo       console.error('[ERROR] Migration failed:', err.message); >> temp_migrate.js
-echo       db.close(); >> temp_migrate.js
-echo       process.exit(1); >> temp_migrate.js
-echo     } >> temp_migrate.js
-echo. >> temp_migrate.js
-echo     if (this.changes === 0) { >> temp_migrate.js
-echo       console.log('[WARNING] No rows were updated. The AppName setting may not exist.'); >> temp_migrate.js
-echo     } else { >> temp_migrate.js
-echo       console.log('[SUCCESS] AppName updated successfully! Changed', this.changes, 'row(s)'); >> temp_migrate.js
-echo     } >> temp_migrate.js
-echo. >> temp_migrate.js
-echo     db.close((err) =^> { >> temp_migrate.js
-echo       if (err) { >> temp_migrate.js
-echo         console.error('[ERROR] Failed to close database:', err.message); >> temp_migrate.js
-echo         process.exit(1); >> temp_migrate.js
-echo       } >> temp_migrate.js
-echo       console.log('[INFO] Database connection closed'); >> temp_migrate.js
-echo     }); >> temp_migrate.js
-echo   } >> temp_migrate.js
-echo ); >> temp_migrate.js
+REM Create the migration script using proper escaping
+(
+echo const sqlite3 = require('sqlite3'^).verbose(^);
+echo const path = require('path'^);
+echo.
+echo const DB_PATH = path.resolve(__dirname, 'database.sqlite'^);
+echo.
+echo const db = new sqlite3.Database(DB_PATH, (err^) ^^^=^^^> {
+echo   if (err^) {
+echo     console.error('[ERROR] Failed to connect to database:', err.message^);
+echo     process.exit(1^);
+echo   }
+echo }^);
+echo.
+echo console.log('[INFO] Connected to database'^);
+echo console.log('[INFO] Updating AppName from "Hello World Page" to "Koni"...'^);
+echo.
+echo db.run(
+echo   'UPDATE SystemSetting SET settingValue = ? WHERE settingName = ?',
+echo   ['Koni', 'AppName'],
+echo   function(err^) {
+echo     if (err^) {
+echo       console.error('[ERROR] Migration failed:', err.message^);
+echo       db.close(^);
+echo       process.exit(1^);
+echo     }
+echo.
+echo     if (this.changes === 0^) {
+echo       console.log('[WARNING] No rows were updated. The AppName setting may not exist.'^);
+echo     } else {
+echo       console.log('[SUCCESS] AppName updated successfully! Changed', this.changes, 'row(s^)'^);
+echo     }
+echo.
+echo     db.close((err^) ^^^=^^^> {
+echo       if (err^) {
+echo         console.error('[ERROR] Failed to close database:', err.message^);
+echo         process.exit(1^);
+echo       }
+echo       console.log('[INFO] Database connection closed'^);
+echo     }^);
+echo   }
+echo ^);
+) > temp_migrate.js
 
 REM Run the migration
 node temp_migrate.js
