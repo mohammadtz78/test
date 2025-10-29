@@ -1,0 +1,25 @@
+{
+  "name": "hello-world-page",
+  "version": "1.0.0",
+  "description": "Hello World Page application with React, Node.js, and SQLite",
+  "main": "index.js",
+  "scripts": {
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ..",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "cd client && npm start",
+    "server": "cd server && npm run dev",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start"
+  },
+  "keywords": [
+    "react",
+    "nodejs",
+    "sqlite",
+    "hello-world"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
