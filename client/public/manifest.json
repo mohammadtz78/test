@@ -1,0 +1,9 @@
+{
+  "short_name": "Hello World",
+  "name": "Hello World Page Application",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#5E6AD2",
+  "background_color": "#FAFAFA"
+}
