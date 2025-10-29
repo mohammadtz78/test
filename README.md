@@ -2,52 +2,15 @@
 
 A full-stack application built with React, Node.js, and SQLite that displays a "Hello World" message from a system settings database.
 
-## 🚀 Quick Start
-
-### One-Command Setup
-
-#### Windows Users
-Simply double-click or run:
-```bash
-start.bat
-```
-
-#### Mac/Linux Users
-```bash
-chmod +x start.sh
-./start.sh
-```
-
-The script will automatically:
-1. ✅ Install all dependencies
-2. ✅ Initialize the SQLite database
-3. ✅ Start both frontend and backend servers
-4. ✅ Open your browser to http://localhost:3000
-
-## 📚 Documentation
-
-| Document | Description |
-|----------|-------------|
-| **[START_HERE.md](START_HERE.md)** | 👋 **New here? Start with this!** Complete welcome guide |
-| **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** | 📋 Comprehensive project overview and details |
-| **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** | ⚡ Quick commands and troubleshooting |
-| **[ARCHITECTURE.md](ARCHITECTURE.md)** | 🏗️ Technical architecture and design |
-| **[CONTRIBUTING.md](CONTRIBUTING.md)** | 🤝 How to contribute to the project |
-| **[CHANGELOG.md](CHANGELOG.md)** | 📝 Version history and changes |
-| **[FILE_TREE.txt](FILE_TREE.txt)** | 📂 Complete file structure overview |
-
-## ✨ Features
+## Features
 
 - 🎨 Modern UI with custom design theme
 - 🔄 Real-time data fetching from SQLite database
-- 📱 Responsive design (works on all devices)
+- 📱 Responsive design
 - 🚀 Easy one-command startup
-- 💾 System settings management via REST API
-- 🔔 Toast notifications for user feedback
-- ⚡ Loading states and error handling
-- 🎯 Clean, well-documented code
+- 💾 System settings management
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 **Frontend:**
 - React 18
@@ -57,200 +20,241 @@ The script will automatically:
 **Backend:**
 - Node.js with Express
 - SQLite database
-- OData-style REST endpoints
+- OData-style endpoints
 - CORS enabled
 
-## 📁 Project Structure
+## Quick Start
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm (comes with Node.js)
+
+### Installation & Running
+
+#### Windows Users
+
+Simply double-click the `start.bat` file or run from command prompt:
+
+```bash
+start.bat
+```
+
+#### Mac/Linux Users
+
+Make the script executable and run it:
+
+```bash
+chmod +x start.sh
+./start.sh
+```
+
+#### Manual Start (Alternative)
+
+If you prefer to run commands manually:
+
+```bash
+# Install all dependencies
+npm run install:all
+
+# Run the application
+npm run dev
+```
+
+### What the startup script does:
+
+1. ✅ Installs all dependencies for root, client, and server
+2. ✅ Initializes the SQLite database with sample data
+3. ✅ Starts both the frontend and backend servers concurrently
+4. ✅ Opens your browser automatically to http://localhost:3000
+
+The backend server runs on `http://localhost:5000`
+
+## Database Migration
+
+### When Migrations Are Needed
+
+Database migrations are needed when:
+- Schema changes are made (tables, columns, indexes)
+- Data needs to be updated or transformed
+- Initial data needs to be modified
+
+### How to Run Migrations
+
+**Important:** Always backup your database before running migrations!
+
+#### Windows Users
+
+Double-click `migrate.bat` or run from command prompt:
+
+```bash
+migrate.bat
+```
+
+#### Mac/Linux Users
+
+Make the script executable (first time only) and run:
+
+```bash
+chmod +x migrate.sh
+./migrate.sh
+```
+
+### What the Migration Script Does
+
+1. ✅ Checks if Node.js and dependencies are installed
+2. ✅ Verifies if migrations have already been applied (idempotent)
+3. ✅ Connects to the SQLite database
+4. ✅ Applies schema or data changes
+5. ✅ Tracks completed migrations to prevent duplicate execution
+6. ✅ Provides clear success or error messages
+
+### Current Migrations
+
+- **Migration 001:** Updates the AppName setting from "Hello World Page" to "Koni"
+
+### If Migration Fails
+
+If a migration fails:
+
+1. **Check the error message** - It will tell you what went wrong
+2. **Verify database access** - Ensure no other process is using the database
+3. **Check dependencies** - Run `npm install` in the server directory
+4. **Restore from backup** - If you have a backup, restore it and try again
+5. **Manual fix** - You can manually update the database using an SQLite browser tool
+
+### Migration Tracking
+
+Migrations are tracked in the `server/migrations/` directory. Each completed migration creates a marker file (e.g., `.migration_001_appname_to_koni`) to prevent re-running the same migration.
+
+## Project Structure
 
 ```
 hello-world-page/
 ├── client/                 # React frontend application
+│   ├── public/            # Static files
 │   ├── src/
 │   │   ├── components/    # React components
 │   │   ├── styles/        # CSS stylesheets
-│   │   └── App.js         # Main app component
-│   └── package.json
+│   │   ├── App.js         # Main application component
+│   │   └── index.js       # Application entry point
+│   └── package.json       # Frontend dependencies
 │
 ├── server/                # Node.js backend application
 │   ├── src/
 │   │   ├── config/        # Database configuration
 │   │   ├── routes/        # API routes
+│   │   ├── init-db.js     # Database initialization
 │   │   └── index.js       # Server entry point
-│   └── package.json
+│   ├── migrations/        # Migration tracking directory
+│   └── package.json       # Backend dependencies
 │
-├── start.bat              # Windows startup script
-├── start.sh               # Unix/Mac startup script
-└── README.md              # This file
+├── .gitignore            # Git ignore rules
+├── package.json          # Root package.json with scripts
+├── start.bat             # Windows startup script
+├── start.sh              # Unix/Mac startup script
+├── migrate.bat           # Windows migration script
+├── migrate.sh            # Unix/Mac migration script
+└── README.md             # This file
 ```
 
-## 🌐 Application URLs
-
-- **Frontend:** http://localhost:3000
-- **Backend API:** http://localhost:5000
-- **Health Check:** http://localhost:5000/health
-- **System Settings:** http://localhost:5000/api/SystemSetting
-
-## 📝 Available Scripts
-
-### Root Level Commands
-```bash
-# Install all dependencies
-npm run install:all
-
-# Run both client and server
-npm run dev
-
-# Run only client (port 3000)
-npm run client
-
-# Run only server (port 5000)
-npm run server
-
-# Build for production
-npm run build
-```
-
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Get Hello World Message
-```bash
+
+```
 GET http://localhost:5000/api/SystemSetting/HelloWorld
 ```
 
+Returns the Hello World message from the system settings.
+
 ### Get All Settings
-```bash
+
+```
 GET http://localhost:5000/api/SystemSetting
 ```
 
-### Create New Setting
-```bash
-POST http://localhost:5000/api/SystemSetting
-Content-Type: application/json
+Returns all system settings from the database.
 
-{
-  "settingName": "NewSetting",
-  "settingValue": "Value",
-  "description": "Optional description"
-}
+## Design System
+
+The application uses a custom design system with:
+
+- **Primary Color:** #5E6AD2
+- **Typography:** SF Mono for body, SF Pro Display for headings
+- **Component Templates:** Modern buttons, forms, cards, and tables
+- **Responsive Layout:** Mobile-first approach with topbar navigation
+
+## Development
+
+### Running in Development Mode
+
+```bash
+npm run dev
 ```
 
-### Update Setting
-```bash
-PUT http://localhost:5000/api/SystemSetting/:settingName
-Content-Type: application/json
+This will start both the client (port 3000) and server (port 5000) with hot-reloading enabled.
 
-{
-  "settingValue": "Updated Value",
-  "description": "Updated description"
-}
+### Building for Production
+
+```bash
+# Build the React frontend
+npm run build
+
+# Start the production server
+npm start
 ```
 
-### Delete Setting
-```bash
-DELETE http://localhost:5000/api/SystemSetting/:settingName
-```
-
-## 💾 Database
+## Database
 
 The application uses SQLite with the following schema:
 
 **SystemSetting Table:**
-- `id` - INTEGER PRIMARY KEY (auto-increment)
-- `settingName` - TEXT UNIQUE NOT NULL
-- `settingValue` - TEXT NOT NULL
-- `description` - TEXT NULLABLE
+- `id` (INTEGER PRIMARY KEY)
+- `settingName` (TEXT UNIQUE, REQUIRED)
+- `settingValue` (TEXT, REQUIRED)
+- `description` (TEXT, OPTIONAL)
 
 Sample data is automatically inserted on first run.
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Port Already in Use
-Close any applications using ports 3000 or 5000, or modify the ports in the configuration files.
+
+If you get an error that port 3000 or 5000 is already in use:
+
+1. Close any applications using those ports
+2. Or modify the ports in:
+   - Client: `client/package.json` (change PORT environment variable)
+   - Server: `server/src/index.js` (change PORT constant)
 
 ### Dependencies Not Installing
+
+Try manually installing dependencies:
+
 ```bash
-# Clean install
 npm install
 cd client && npm install
 cd ../server && npm install
 ```
 
 ### Database Issues
-```bash
-# Delete and recreate database
-rm server/database.sqlite
-cd server && node src/init-db.js
-```
 
-For more troubleshooting tips, see [QUICK_REFERENCE.md](QUICK_REFERENCE.md).
+Delete the `server/database.sqlite` file and restart the application. The database will be recreated with fresh data.
 
-## 🎨 Design System
+### Migration Issues
 
-The application follows a custom design system with:
+If migrations fail or behave unexpectedly:
 
-- **Primary Color:** #5E6AD2
-- **Typography:** SF Mono (body) and SF Pro Display (headings)
-- **Component Templates:** Modern buttons, forms, cards, and tables
-- **Responsive Layout:** Mobile-first approach with topbar navigation
+1. Check the `server/migrations/` directory for marker files
+2. Delete marker files to re-run specific migrations (use with caution)
+3. Manually verify database state using an SQLite browser tool
+4. Check server logs for detailed error messages
 
-## 🚀 Development
+## License
 
-### Running in Development Mode
-```bash
-npm run dev
-```
-This starts both client (port 3000) and server (port 5000) with hot-reloading.
+MIT License - feel free to use this project for learning and development.
 
-### Building for Production
-```bash
-npm run build
-npm start
-```
+## Support
 
-## 📖 Learn More
-
-- **React:** https://react.dev
-- **Express:** https://expressjs.com
-- **SQLite:** https://www.sqlite.org
-- **Node.js:** https://nodejs.org
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🎯 What's Next?
-
-After getting the application running, you can:
-
-1. **Explore the code** - Well-commented and organized
-2. **Try the API** - Test all CRUD operations
-3. **Customize the UI** - Modify colors, styles, and components
-4. **Add features** - Authentication, routing, more pages
-5. **Deploy** - Take it to production!
-
-## 💡 Key Features Implemented
-
-✅ Full-stack architecture  
-✅ RESTful API design  
-✅ Database integration  
-✅ Modern UI components  
-✅ Error handling  
-✅ Loading states  
-✅ Toast notifications  
-✅ Responsive design  
-✅ Production-ready code structure  
-✅ Comprehensive documentation  
-
-## 🎉 Success!
-
-If you see the "Hello World" message displayed on http://localhost:3000, everything is working correctly!
-
----
-
-**Built with ❤️ using React, Node.js, and SQLite**
-
-*For detailed information, please read [START_HERE.md](START_HERE.md) or [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)*
+For issues and questions, please check the troubleshooting section or review the code comments for detailed implementation notes.
