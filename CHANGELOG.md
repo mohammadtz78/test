@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2024-01-15
+
+### Added
+
+#### Database Migration System
+- Migration scripts for Windows (`migrate.bat`) and Unix/Mac (`migrate.sh`)
+- Migration tracking system to prevent duplicate migrations
+- Idempotent migration execution (safe to run multiple times)
+- Clear migration status messages and error handling
+- Migration documentation in README
+
+#### Migration 001
+- Update AppName setting from "Hello World Page" to "Koni"
+- Automated database value update
+- Migration tracking via marker files in `server/migrations/`
+
+### Changed
+- **Breaking**: Application name changed from "Hello World Page" to "Koni" in database
+- Enhanced README with comprehensive database migration section
+- Updated troubleshooting guide with migration-related issues
+
+### Documentation
+- Added "Database Migration" section to README
+- Documented when migrations are needed
+- Provided step-by-step migration instructions
+- Added migration failure recovery guide
+- Updated project structure to include migrations directory
+
 ## [1.0.0] - 2024-01-01
 
 ### Added
@@ -80,3 +108,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Export/import functionality
 - Dark mode support
 - Internationalization (i18n)
+- More comprehensive migration system with rollback support
