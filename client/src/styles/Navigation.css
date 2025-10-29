@@ -1,0 +1,95 @@
+/**
+ * Navigation Component Styles
+ * Topbar navigation following the design system
+ */
+
+.navigation {
+  height: 64px;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E5E7EB;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.navigation-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navigation-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navigation-logo {
+  font-family: 'SF Pro Display', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #5E6AD2;
+  text-decoration: none;
+  transition: color 250ms ease-in-out;
+}
+
+.navigation-logo:hover {
+  color: #4F5CBF;
+}
+
+.navigation-title {
+  font-family: 'SF Pro Display', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.navigation-menu {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+}
+
+.navigation-menu-item {
+  margin: 0;
+}
+
+.navigation-link {
+  font-size: 16px;
+  font-weight: 500;
+  color: #6B7280;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 250ms ease-in-out;
+}
+
+.navigation-link:hover {
+  color: #111827;
+  background-color: #F3F4F6;
+}
+
+.navigation-link.active {
+  color: #5E6AD2;
+  background-color: rgba(94, 106, 210, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navigation-title {
+    display: none;
+  }
+  
+  .navigation-menu {
+    gap: 12px;
+  }
+  
+  .navigation-link {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+}
