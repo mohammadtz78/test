@@ -1,0 +1,55 @@
+/**
+ * Loading Spinner Component Styles
+ * Loading indicator following the design system
+ */
+
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  min-height: 300px;
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #E5E7EB;
+  border-top-color: #5E6AD2;
+  border-radius: 50%;
+  animation: spinner-rotation 0.8s linear infinite;
+}
+
+@keyframes spinner-rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner-text {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+/* Small variant */
+.loading-spinner.small {
+  width: 24px;
+  height: 24px;
+  border-width: 3px;
+}
+
+.loading-spinner-container.small {
+  min-height: 150px;
+  padding: 24px;
+}
+
+.loading-spinner-container.small .loading-spinner-text {
+  font-size: 12px;
+  margin-top: 8px;
+}
