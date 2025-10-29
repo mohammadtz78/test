@@ -2,15 +2,52 @@
 
 A full-stack application built with React, Node.js, and SQLite that displays a "Hello World" message from a system settings database.
 
-## Features
+## 🚀 Quick Start
+
+### One-Command Setup
+
+#### Windows Users
+Simply double-click or run:
+```bash
+start.bat
+```
+
+#### Mac/Linux Users
+```bash
+chmod +x start.sh
+./start.sh
+```
+
+The script will automatically:
+1. ✅ Install all dependencies
+2. ✅ Initialize the SQLite database
+3. ✅ Start both frontend and backend servers
+4. ✅ Open your browser to http://localhost:3000
+
+## 📚 Documentation
+
+| Document | Description |
+|----------|-------------|
+| **[START_HERE.md](START_HERE.md)** | 👋 **New here? Start with this!** Complete welcome guide |
+| **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** | 📋 Comprehensive project overview and details |
+| **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** | ⚡ Quick commands and troubleshooting |
+| **[ARCHITECTURE.md](ARCHITECTURE.md)** | 🏗️ Technical architecture and design |
+| **[CONTRIBUTING.md](CONTRIBUTING.md)** | 🤝 How to contribute to the project |
+| **[CHANGELOG.md](CHANGELOG.md)** | 📝 Version history and changes |
+| **[FILE_TREE.txt](FILE_TREE.txt)** | 📂 Complete file structure overview |
+
+## ✨ Features
 
 - 🎨 Modern UI with custom design theme
 - 🔄 Real-time data fetching from SQLite database
-- 📱 Responsive design
+- 📱 Responsive design (works on all devices)
 - 🚀 Easy one-command startup
-- 💾 System settings management
+- 💾 System settings management via REST API
+- 🔔 Toast notifications for user feedback
+- ⚡ Loading states and error handling
+- 🎯 Clean, well-documented code
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 **Frontend:**
 - React 18
@@ -20,172 +57,200 @@ A full-stack application built with React, Node.js, and SQLite that displays a "
 **Backend:**
 - Node.js with Express
 - SQLite database
-- OData-style endpoints
+- OData-style REST endpoints
 - CORS enabled
 
-## Quick Start
-
-### Prerequisites
-
-- Node.js (v14 or higher)
-- npm (comes with Node.js)
-
-### Installation & Running
-
-#### Windows Users
-
-Simply double-click the `start.bat` file or run from command prompt:
-
-```bash
-start.bat
-```
-
-#### Mac/Linux Users
-
-Make the script executable and run it:
-
-```bash
-chmod +x start.sh
-./start.sh
-```
-
-#### Manual Start (Alternative)
-
-If you prefer to run commands manually:
-
-```bash
-# Install all dependencies
-npm run install:all
-
-# Run the application
-npm run dev
-```
-
-### What the startup script does:
-
-1. ✅ Installs all dependencies for root, client, and server
-2. ✅ Initializes the SQLite database with sample data
-3. ✅ Starts both the frontend and backend servers concurrently
-4. ✅ Opens your browser automatically to http://localhost:3000
-
-The backend server runs on `http://localhost:5000`
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 hello-world-page/
 ├── client/                 # React frontend application
-│   ├── public/            # Static files
 │   ├── src/
 │   │   ├── components/    # React components
 │   │   ├── styles/        # CSS stylesheets
-│   │   ├── App.js         # Main application component
-│   │   └── index.js       # Application entry point
-│   └── package.json       # Frontend dependencies
+│   │   └── App.js         # Main app component
+│   └── package.json
 │
 ├── server/                # Node.js backend application
 │   ├── src/
 │   │   ├── config/        # Database configuration
 │   │   ├── routes/        # API routes
-│   │   ├── init-db.js     # Database initialization
 │   │   └── index.js       # Server entry point
-│   └── package.json       # Backend dependencies
+│   └── package.json
 │
-├── .gitignore            # Git ignore rules
-├── package.json          # Root package.json with scripts
-├── start.bat             # Windows startup script
-├── start.sh              # Unix/Mac startup script
-└── README.md             # This file
+├── start.bat              # Windows startup script
+├── start.sh               # Unix/Mac startup script
+└── README.md              # This file
 ```
 
-## API Endpoints
+## 🌐 Application URLs
+
+- **Frontend:** http://localhost:3000
+- **Backend API:** http://localhost:5000
+- **Health Check:** http://localhost:5000/health
+- **System Settings:** http://localhost:5000/api/SystemSetting
+
+## 📝 Available Scripts
+
+### Root Level Commands
+```bash
+# Install all dependencies
+npm run install:all
+
+# Run both client and server
+npm run dev
+
+# Run only client (port 3000)
+npm run client
+
+# Run only server (port 5000)
+npm run server
+
+# Build for production
+npm run build
+```
+
+## 🔌 API Endpoints
 
 ### Get Hello World Message
-
-```
+```bash
 GET http://localhost:5000/api/SystemSetting/HelloWorld
 ```
 
-Returns the Hello World message from the system settings.
-
 ### Get All Settings
-
-```
+```bash
 GET http://localhost:5000/api/SystemSetting
 ```
 
-Returns all system settings from the database.
-
-## Design System
-
-The application uses a custom design system with:
-
-- **Primary Color:** #5E6AD2
-- **Typography:** SF Mono for body, SF Pro Display for headings
-- **Component Templates:** Modern buttons, forms, cards, and tables
-- **Responsive Layout:** Mobile-first approach with topbar navigation
-
-## Development
-
-### Running in Development Mode
-
+### Create New Setting
 ```bash
-npm run dev
+POST http://localhost:5000/api/SystemSetting
+Content-Type: application/json
+
+{
+  "settingName": "NewSetting",
+  "settingValue": "Value",
+  "description": "Optional description"
+}
 ```
 
-This will start both the client (port 3000) and server (port 5000) with hot-reloading enabled.
-
-### Building for Production
-
+### Update Setting
 ```bash
-# Build the React frontend
-npm run build
+PUT http://localhost:5000/api/SystemSetting/:settingName
+Content-Type: application/json
 
-# Start the production server
-npm start
+{
+  "settingValue": "Updated Value",
+  "description": "Updated description"
+}
 ```
 
-## Database
+### Delete Setting
+```bash
+DELETE http://localhost:5000/api/SystemSetting/:settingName
+```
+
+## 💾 Database
 
 The application uses SQLite with the following schema:
 
 **SystemSetting Table:**
-- `id` (INTEGER PRIMARY KEY)
-- `settingName` (TEXT UNIQUE, REQUIRED)
-- `settingValue` (TEXT, REQUIRED)
-- `description` (TEXT, OPTIONAL)
+- `id` - INTEGER PRIMARY KEY (auto-increment)
+- `settingName` - TEXT UNIQUE NOT NULL
+- `settingValue` - TEXT NOT NULL
+- `description` - TEXT NULLABLE
 
 Sample data is automatically inserted on first run.
 
-## Troubleshooting
+## 🐛 Troubleshooting
 
 ### Port Already in Use
-
-If you get an error that port 3000 or 5000 is already in use:
-
-1. Close any applications using those ports
-2. Or modify the ports in:
-   - Client: `client/package.json` (change PORT environment variable)
-   - Server: `server/src/index.js` (change PORT constant)
+Close any applications using ports 3000 or 5000, or modify the ports in the configuration files.
 
 ### Dependencies Not Installing
-
-Try manually installing dependencies:
-
 ```bash
+# Clean install
 npm install
 cd client && npm install
 cd ../server && npm install
 ```
 
 ### Database Issues
+```bash
+# Delete and recreate database
+rm server/database.sqlite
+cd server && node src/init-db.js
+```
 
-Delete the `server/database.sqlite` file and restart the application. The database will be recreated with fresh data.
+For more troubleshooting tips, see [QUICK_REFERENCE.md](QUICK_REFERENCE.md).
 
-## License
+## 🎨 Design System
 
-MIT License - feel free to use this project for learning and development.
+The application follows a custom design system with:
 
-## Support
+- **Primary Color:** #5E6AD2
+- **Typography:** SF Mono (body) and SF Pro Display (headings)
+- **Component Templates:** Modern buttons, forms, cards, and tables
+- **Responsive Layout:** Mobile-first approach with topbar navigation
 
-For issues and questions, please check the troubleshooting section or review the code comments for detailed implementation notes.
+## 🚀 Development
+
+### Running in Development Mode
+```bash
+npm run dev
+```
+This starts both client (port 3000) and server (port 5000) with hot-reloading.
+
+### Building for Production
+```bash
+npm run build
+npm start
+```
+
+## 📖 Learn More
+
+- **React:** https://react.dev
+- **Express:** https://expressjs.com
+- **SQLite:** https://www.sqlite.org
+- **Node.js:** https://nodejs.org
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🎯 What's Next?
+
+After getting the application running, you can:
+
+1. **Explore the code** - Well-commented and organized
+2. **Try the API** - Test all CRUD operations
+3. **Customize the UI** - Modify colors, styles, and components
+4. **Add features** - Authentication, routing, more pages
+5. **Deploy** - Take it to production!
+
+## 💡 Key Features Implemented
+
+✅ Full-stack architecture  
+✅ RESTful API design  
+✅ Database integration  
+✅ Modern UI components  
+✅ Error handling  
+✅ Loading states  
+✅ Toast notifications  
+✅ Responsive design  
+✅ Production-ready code structure  
+✅ Comprehensive documentation  
+
+## 🎉 Success!
+
+If you see the "Hello World" message displayed on http://localhost:3000, everything is working correctly!
+
+---
+
+**Built with ❤️ using React, Node.js, and SQLite**
+
+*For detailed information, please read [START_HERE.md](START_HERE.md) or [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)*
