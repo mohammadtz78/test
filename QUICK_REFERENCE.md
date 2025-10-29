@@ -15,6 +15,40 @@ chmod +x start.sh
 
 ---
 
+## 🔄 Database Migrations
+
+### Run Migrations
+
+**Windows:**
+```bash
+migrate.bat
+```
+
+**Mac/Linux:**
+```bash
+chmod +x migrate.sh
+./migrate.sh
+```
+
+### Check Migration Status
+```bash
+# Windows
+dir server\migrations
+
+# Mac/Linux
+ls -la server/migrations/
+```
+
+### Migration Files
+- `migrate.bat` - Windows migration script
+- `migrate.sh` - Unix/Linux/Mac migration script
+- `server/migrations/` - Migration tracking directory
+
+### Current Migrations
+- **001**: Update AppName to "Koni"
+
+---
+
 ## 🌐 URLs
 
 | Service | URL |
@@ -66,7 +100,11 @@ npm start
 # Initialize database
 cd server && npm run init-db
 
-# Delete database
+# Run migrations
+migrate.bat  # Windows
+./migrate.sh # Mac/Linux
+
+# Delete database (fresh start)
 rm server/database.sqlite
 ```
 
@@ -157,9 +195,12 @@ hello-world-page/
 │   │   └── styles/
 │   └── public/
 ├── server/          # Node.js backend
-│   └── src/
-│       ├── config/
-│       └── routes/
+│   ├── src/
+│   │   ├── config/
+│   │   └── routes/
+│   └── migrations/  # Migration tracking
+├── migrate.bat      # Windows migration
+├── migrate.sh       # Unix migration
 ├── start.bat        # Windows startup
 ├── start.sh         # Unix startup
 └── README.md        # Documentation
@@ -204,6 +245,16 @@ npm cache clean --force
 npm run install:all
 ```
 
+### Migration Issues
+```bash
+# Check migrations applied
+ls server/migrations/
+
+# Re-run migration (delete marker file first)
+rm server/migrations/.migration_001_appname_to_koni
+./migrate.sh  # or migrate.bat on Windows
+```
+
 ---
 
 ## 🧪 Testing Commands
@@ -242,7 +293,12 @@ Backend:
 └── server/src/routes/systemSettings.js (API routes)
 
 Database:
-└── server/database.sqlite (auto-created)
+├── server/database.sqlite (auto-created)
+└── server/migrations/ (tracking)
+
+Scripts:
+├── start.bat / start.sh (startup)
+└── migrate.bat / migrate.sh (migrations)
 ```
 
 ---
@@ -286,7 +342,7 @@ SystemSetting
 
 ### Default Data
 - HelloWorld: Main greeting message
-- AppName: "Hello World Page"
+- AppName: "Koni" (updated via migration)
 - Version: "1.0.0"
 - Theme: "Modern"
 
@@ -342,6 +398,7 @@ import HelloWorldPage from './components/HelloWorldPage';
 | File | Purpose |
 |------|---------|
 | README.md | Main documentation |
+| MIGRATION_GUIDE.md | Database migration guide |
 | PROJECT_SUMMARY.md | Comprehensive overview |
 | ARCHITECTURE.md | Technical architecture |
 | CONTRIBUTING.md | Contribution guidelines |
@@ -354,6 +411,7 @@ import HelloWorldPage from './components/HelloWorldPage';
 
 ### Pre-Deployment
 - [ ] Run all tests
+- [ ] Run migrations
 - [ ] Build production bundle
 - [ ] Update environment variables
 - [ ] Review security settings
@@ -363,12 +421,13 @@ import HelloWorldPage from './components/HelloWorldPage';
 
 ### Deployment Steps
 1. Build frontend: `npm run build`
-2. Set environment variables
-3. Deploy backend to hosting service
-4. Deploy frontend to static hosting
-5. Update API URLs
-6. Test production site
-7. Monitor for errors
+2. Run migrations: `migrate.bat` / `migrate.sh`
+3. Set environment variables
+4. Deploy backend to hosting service
+5. Deploy frontend to static hosting
+6. Update API URLs
+7. Test production site
+8. Monitor for errors
 
 ---
 
@@ -419,6 +478,7 @@ npx source-map-explorer 'build/static/js/*.js'
 - Postman: API testing
 - VS Code: Code editor
 - React DevTools: Browser extension
+- DB Browser for SQLite: Database viewer
 - npm: Package manager
 
 ---
@@ -468,11 +528,13 @@ npx source-map-explorer 'build/static/js/*.js'
 1. Read error messages carefully
 2. Check console logs (F12 in browser)
 3. Review README.md
-4. Check ARCHITECTURE.md
-5. Look at code comments
+4. Check MIGRATION_GUIDE.md
+5. Check ARCHITECTURE.md
+6. Look at code comments
 
 ### Common Solutions
 - Restart servers
+- Run migrations
 - Clear npm cache
 - Reinstall dependencies
 - Check port availability
@@ -490,6 +552,37 @@ Application is working correctly if:
 - ✅ Database file exists at server/database.sqlite
 - ✅ API calls return data
 - ✅ Toast notifications appear
+- ✅ Migrations have been applied successfully
+
+---
+
+## 🔍 Migration Quick Commands
+
+### Check Applied Migrations
+```bash
+# Windows
+dir server\migrations
+
+# Mac/Linux
+ls -la server/migrations/
+```
+
+### Backup Database Before Migration
+```bash
+# Windows
+copy server\database.sqlite server\database.backup.sqlite
+
+# Mac/Linux
+cp server/database.sqlite server/database.backup.sqlite
+```
+
+### View Database Content
+```bash
+# Using sqlite3 CLI
+sqlite3 server/database.sqlite "SELECT * FROM SystemSetting;"
+
+# Or use DB Browser for SQLite (GUI tool)
+```
 
 ---
 
