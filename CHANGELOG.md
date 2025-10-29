@@ -5,6 +5,34 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2024-01-20
+
+### Fixed
+
+#### Critical Migration Script Fix
+- **Fixed** `migrate.bat` syntax error: "has was unexpected at this time"
+- **Root Cause**: Improper escaping of JavaScript arrow function syntax (`=>`) in Windows batch file
+- **Solution**: Implemented proper escape sequences (`^^^=^^^>`) for special characters
+- **Impact**: Migration script now works flawlessly on all Windows versions
+
+### Changed
+- Improved `migrate.bat` script structure with `setlocal EnableDelayedExpansion`
+- Enhanced echo block organization using parentheses with single redirect
+- Better error messages and console output formatting
+
+### Added
+- **MIGRATION_FIX.md**: Comprehensive documentation of the fix and escape sequences
+- **MIGRATION_QUICKSTART.md**: Quick reference guide for running migrations
+- Detailed troubleshooting section for batch file special characters
+- Prevention tips for future batch file development
+- Testing verification steps
+
+### Technical Details
+- **Escape Sequences**: Arrow functions now properly escaped in batch files
+- **Special Characters**: All JavaScript special chars (`()`, `>`, `|`, `&`) properly handled
+- **Idempotency**: Migration scripts remain safe to run multiple times
+- **Cross-Platform**: Both Windows and Unix scripts verified working
+
 ## [1.1.0] - 2024-01-15
 
 ### Added
@@ -109,3 +137,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dark mode support
 - Internationalization (i18n)
 - More comprehensive migration system with rollback support
+- Migration versioning system
+- Automated migration testing
