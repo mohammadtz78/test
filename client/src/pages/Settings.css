@@ -1,0 +1,22 @@
+.settings-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 800px;
+}
+
+.settings-description {
+  font-size: 14px;
+  color: #6B7280;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.about-section p {
+  margin: 0 0 8px 0;
+  color: #111827;
+}
+
+.about-section p:last-child {
+  margin-bottom: 0;
+}
