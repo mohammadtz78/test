@@ -1,0 +1,9 @@
+{
+  "short_name": "Spotify Manager",
+  "name": "Spotify Account Manager",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#5E6AD2",
+  "background_color": "#FAFAFA"
+}
